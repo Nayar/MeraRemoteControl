@@ -19,10 +19,13 @@ public:
         FORWARD,
         BACKWARD
     };
+
     explicit CarController(QObject *parent = 0);
     Q_INVOKABLE void accelerate(ACCELERATE_DIRECTION direction, double power);
     Q_INVOKABLE void turn(TURN_DIRECTION direction, double power);
     Q_INVOKABLE void stop();
+
+    void setGPIO(int no, int value);
 
 signals:
 
