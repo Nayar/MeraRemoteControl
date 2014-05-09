@@ -11,7 +11,8 @@ class CarController : public QObject
 public:
     enum TURN_DIRECTION {
         LEFT,
-        RIGHT
+        RIGHT,
+        FRONT
     };
 
     enum ACCELERATE_DIRECTION {
@@ -19,9 +20,9 @@ public:
         BACKWARD
     };
     explicit CarController(QObject *parent = 0);
-    void accelerate(ACCELERATE_DIRECTION direction, double power);
-    void turn(TURN_DIRECTION direction, double power);
-    void stop();
+    Q_INVOKABLE void accelerate(ACCELERATE_DIRECTION direction, double power);
+    Q_INVOKABLE void turn(TURN_DIRECTION direction, double power);
+    Q_INVOKABLE void stop();
 
 signals:
 
