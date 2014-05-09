@@ -14,11 +14,13 @@ void CarController::accelerate(CarController::ACCELERATE_DIRECTION direction, do
 {
     qDebug() << "Accelerating";
 
-    QNetworkAccessManager manager;
-    QUrl url("http://192.192.168.6/GPIO/11/function/oeut");
-    QUrl params;
+    QNetworkAccessManager* manager = new QNetworkAccessManager(this);
+    QUrl url("http://192.168.1.6:8000/GPIO/11/value/1");
+    url.setUserName("webiopi");
+    url.setPassword("raspberry");
     QNetworkRequest request(url);
-    qDebug()<< manager.post(request,"")->;
+    QNetworkReply *reply = manager->post(request,"");
+    qDebug() << reply->readAll();
 }
 
 void CarController::turn(CarController::TURN_DIRECTION direction, double power)
