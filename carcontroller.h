@@ -37,8 +37,8 @@ public:
     };
 
     explicit CarController(QObject *parent = 0);
-    Q_INVOKABLE void accelerate(ACCELERATE_DIRECTION direction, int power);
-    Q_INVOKABLE void turn(TURN_DIRECTION direction, int power);
+    Q_INVOKABLE void accelerate(ACCELERATE_DIRECTION direction, double power = 1);
+    Q_INVOKABLE void turn(TURN_DIRECTION direction, double power = 1);
     Q_INVOKABLE void stop();
 
     void setGPIO(int no, int value);

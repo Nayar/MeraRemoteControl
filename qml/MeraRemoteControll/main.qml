@@ -1,6 +1,6 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.0
-import MeraCar 1.2
+import MeraCar 1.3
 
 ApplicationWindow {
     title: qsTr("Hello World")
@@ -29,6 +29,18 @@ ApplicationWindow {
     }
 
     Button {
+        id: button4
+        x: 268
+        y: 308
+        width: 155
+        height: 23
+        text: qsTr("Reverse")
+        onClicked: {
+            car.accelerate(car.BACKWARD,1);
+        }
+    }
+
+    Button {
         id: button2
         x: 47
         y: 308
@@ -48,17 +60,7 @@ ApplicationWindow {
         }
     }
 
-    Button {
-        id: button4
-        x: 268
-        y: 308
-        width: 155
-        height: 23
-        text: qsTr("Reverse")
-        onClicked: {
-            car.accelerate(car.BACKWARD,1);
-        }
-    }
+
 
     Button {
         id: button5
@@ -78,8 +80,7 @@ ApplicationWindow {
         height: 65
         text: qsTr("Stop")
         onClicked: {
-            car.accelerate(car.BACKWARD,0);
-            car.accelerate(car.FORWARD,0);
+            car.stop()
         }
     }
 
