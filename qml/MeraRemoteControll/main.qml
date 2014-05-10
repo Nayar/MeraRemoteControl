@@ -1,6 +1,6 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.0
-import MeraCar 1.0
+import MeraCar 1.2
 
 ApplicationWindow {
     title: qsTr("Hello World")
@@ -9,6 +9,11 @@ ApplicationWindow {
 
     MeraCar {
         id: car
+        ipAddress: "192.168.1.3"
+        forward_GPIO: 2
+        backward_GPIO: 3
+        right_GPIO: 4
+        left_GPIO: 17
     }
 
     Button {
@@ -65,12 +70,31 @@ ApplicationWindow {
         }
     }
 
+    Button {
+        id: button6
+        x: 154
+        y: 379
+        width: 172
+        height: 65
+        text: qsTr("Stop")
+        onClicked: {
+            car.accelerate(car.BACKWARD,0);
+            car.accelerate(car.FORWARD,0);
+        }
+    }
+
     menuBar: MenuBar {
         Menu {
             title: qsTr("File")
             MenuItem {
                 text: qsTr("Exit")
                 onTriggered: Qt.quit();
+            }
+            MenuItem {
+                text: qsTr("Settings")
+                onTriggered: {
+
+                }
             }
         }
     }
