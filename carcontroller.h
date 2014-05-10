@@ -26,14 +26,15 @@ class CarController : public QObject
 
 public:
     enum TURN_DIRECTION {
+        FRONT,
         LEFT,
-        RIGHT,
-        FRONT
+        RIGHT
     };
 
     enum ACCELERATE_DIRECTION {
         FORWARD,
-        BACKWARD
+        BACKWARD,
+        STOP
     };
 
     explicit CarController(QObject *parent = 0);
