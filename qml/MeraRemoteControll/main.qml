@@ -32,12 +32,32 @@ ApplicationWindow {
                     target: controllers
                     x: 0
                 }
+                PropertyChanges {
+                    target: settings
+                    x : -applicationWindow1.width
+                }
+            },
+            State {
+                name: "settings"
+                PropertyChanges {
+                    target: settings
+                    x : 0
+                }
+                PropertyChanges {
+                    target: controllers
+                    x : -applicationWindow1.width
+                }
             }
         ]
 
         Item {
+            id: settings
+            x: -applicationWindow1.width
+        }
+
+        Item {
             id: controllers
-            x : -applicationWindow1.width
+            x : 0
 
             Button {
                 id: button1
@@ -127,7 +147,7 @@ ApplicationWindow {
             MenuItem {
                 text: qsTr("Settings")
                 onTriggered: {
-
+                    mainArea.state = "settings"
                 }
             }
         }
