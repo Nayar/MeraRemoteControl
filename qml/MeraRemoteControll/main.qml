@@ -29,116 +29,37 @@ ApplicationWindow {
             State {
                 name: "control"
                 PropertyChanges {
-                    target: controllers
+                    target: controllers;
                     x: 0
                 }
                 PropertyChanges {
-                    target: settings
-                    x : -applicationWindow1.width
+                    target: settings;
+                    x : -settings.width
                 }
             },
             State {
                 name: "settings"
                 PropertyChanges {
-                    target: settings
+                    target: settings;
                     x : 0
                 }
                 PropertyChanges {
-                    target: controllers
-                    x : -applicationWindow1.width
+                    target: controllers;
+                    x : -controllers.width
                 }
             }
+
         ]
 
-        Item {
-            id: settings
-            x: -applicationWindow1.width
-        }
-
-        Item {
+        ControllerWindow{
             id: controllers
-            x : 0
+            Behavior on x { SmoothedAnimation { velocity: 1000 } }
         }
 
-        Item {
-            id: item1
-            x: 31
-            y: 54
-            width: 427
-            height: 442
-            rotation: 90
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-
-            Button {
-                id: button6
-                x: 111
-                y: 250
-                width: 172
-                height: 65
-                text: qsTr("Stop")
-                onClicked: {
-                    car.stop()
-                }
-            }
-
-            Button {
-                id: button5
-                x: -60
-                y: 87
-                text: qsTr("Front")
-                onClicked: {
-                    //car.turn(car.FRONT,1);
-                    car.turn(0,1);
-                }
-            }
-
-            Button {
-                id: button3
-                x: 12
-                y: 32
-                text: qsTr("Right")
-                onClicked: {
-                    //car.turn(car.RIGHT,1);
-                    car.turn(1,1);
-                }
-            }
-
-            Button {
-                id: button4
-                x: 161
-                y: 138
-                width: 155
-                height: 23
-                text: qsTr("Reverse")
-                onClicked: {
-                    //car.accelerate(car.BACKWARD,1);
-                    car.accelerate(1,1);
-                }
-            }
-
-            Button {
-                id: button2
-                x: 21
-                y: 138
-                text: qsTr("Left")
-                onClicked: {
-                    //car.turn(car.LEFT,1);
-                    car.turn(2,1);
-                }
-            }
-
-            Button {
-                id: button1
-                x: 266
-                y: 7
-                width: 155
-                height: 73
-                text: qsTr("Forward")
-                onClicked: {
-                    car.accelerate(car.FORWARD,1);
-                }
-            }
+        SettingsWindow{
+            id: settings
+            x: -parent.width
+            Behavior on x { SmoothedAnimation { velocity: 1000 } }
         }
     }
 

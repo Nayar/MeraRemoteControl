@@ -21,3 +21,7 @@ qtcAddDeployment()
 HEADERS += \
     webiopicontroller.h \
     carcontroller.h
+
+OTHER_FILES += \
+    qml/MeraRemoteControll/SettingsWindow.qml \
+    qml/MeraRemoteControll/ControllerWindow.qml
