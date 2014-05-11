@@ -63,9 +63,12 @@ ApplicationWindow {
         Item {
             id: item1
             x: 31
-            y: 139
-            width: 200
-            height: 200
+            y: 54
+            width: 427
+            height: 442
+            rotation: 90
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
 
             Button {
                 id: button6
@@ -149,14 +152,14 @@ ApplicationWindow {
                 }
             }
             MenuItem {
-                text: qsTr("Exit")
-                onTriggered: Qt.quit();
-            }
-            MenuItem {
                 text: qsTr("Settings")
                 onTriggered: {
                     mainArea.state = "settings"
                 }
+            }
+            MenuItem {
+                text: qsTr("Exit")
+                onTriggered: Qt.quit();
             }
         }
     }
