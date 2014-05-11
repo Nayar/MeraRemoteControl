@@ -163,7 +163,7 @@ Flickable {
             car.setIpAddress(textEditIpAddress.text)
             car.setPortNo(textEditPortNo.text.valueOf())
             car.setUsername(textEditUsername.text)
-            car.setPassword(textPassword.text)
+            car.setPassword(textEditPassword.text)
             mainArea.state = "control"
         }
 
