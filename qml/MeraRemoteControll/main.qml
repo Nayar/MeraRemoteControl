@@ -34,7 +34,7 @@ ApplicationWindow {
                 }
                 PropertyChanges {
                     target: settings;
-                    x : -settings.width
+                    x : parent.width
                 }
             },
             State {
@@ -45,7 +45,7 @@ ApplicationWindow {
                 }
                 PropertyChanges {
                     target: controllers;
-                    x : -controllers.width
+                    x : -parent.width
                 }
             }
 
@@ -53,12 +53,17 @@ ApplicationWindow {
 
         ControllerWindow{
             id: controllers
+            x: 0
+            width: parent.width
+            height: parent.height
             Behavior on x { SmoothedAnimation { velocity: 1000 } }
         }
 
         SettingsWindow{
             id: settings
-            x: -parent.width
+            x: parent.width
+            width: parent.width
+            height: parent.height
             Behavior on x { SmoothedAnimation { velocity: 1000 } }
         }
     }
