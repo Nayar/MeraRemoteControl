@@ -27,8 +27,8 @@ class CarController : public QObject
 public:
     enum TURN_DIRECTION {
         FRONT,
-        LEFT,
-        RIGHT
+        RIGHT,
+        LEFT
     };
 
     enum ACCELERATE_DIRECTION {
@@ -83,41 +83,41 @@ signals:
 
 public slots:
 
-void setIpAddress(QString arg)
-{
-    if (m_ipAddress != arg) {
-        m_ipAddress = arg;
-        emit ipAddressChanged(arg);
+    void setIpAddress(QString arg)
+    {
+        if (m_ipAddress != arg) {
+            m_ipAddress = arg;
+            emit ipAddressChanged(arg);
+        }
     }
-}
-void setForward_GPIO(int arg)
-{
-    if (m_forward_GPIO != arg) {
-        m_forward_GPIO = arg;
-        emit forward_GPIOChanged(arg);
+    void setForward_GPIO(int arg)
+    {
+        if (m_forward_GPIO != arg) {
+            m_forward_GPIO = arg;
+            emit forward_GPIOChanged(arg);
+        }
     }
-}
-void setBackward_GPIO(int arg)
-{
-    if (m_backward_GPIO != arg) {
-        m_backward_GPIO = arg;
-        emit backward_GPIOChanged(arg);
+    void setBackward_GPIO(int arg)
+    {
+        if (m_backward_GPIO != arg) {
+            m_backward_GPIO = arg;
+            emit backward_GPIOChanged(arg);
+        }
     }
-}
-void setRight_GPIO(int arg)
-{
-    if (m_right_GPIO != arg) {
-        m_right_GPIO = arg;
-        emit right_GPIOChanged(arg);
+    void setRight_GPIO(int arg)
+    {
+        if (m_right_GPIO != arg) {
+            m_right_GPIO = arg;
+            emit right_GPIOChanged(arg);
+        }
     }
-}
-void setLeft_GPIO(int arg)
-{
-    if (m_left_GPIO != arg) {
-        m_left_GPIO = arg;
-        emit left_GPIOChanged(arg);
+    void setLeft_GPIO(int arg)
+    {
+        if (m_left_GPIO != arg) {
+            m_left_GPIO = arg;
+            emit left_GPIOChanged(arg);
+        }
     }
-}
 };
 
 #endif // CARCONTROLLER_H

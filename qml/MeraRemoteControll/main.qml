@@ -36,7 +36,8 @@ ApplicationWindow {
         height: 23
         text: qsTr("Reverse")
         onClicked: {
-            car.accelerate(car.BACKWARD,1);
+            //car.accelerate(car.BACKWARD,1);
+            car.accelerate(1,1);
         }
     }
 
@@ -46,7 +47,8 @@ ApplicationWindow {
         y: 308
         text: qsTr("Left")
         onClicked: {
-            car.turn(car.LEFT,1);
+            //car.turn(car.LEFT,1);
+            car.turn(2,1);
         }
     }
 
@@ -56,7 +58,8 @@ ApplicationWindow {
         y: 202
         text: qsTr("Right")
         onClicked: {
-            car.turn(car.RIGHT,1);
+            //car.turn(car.RIGHT,1);
+            car.turn(1,1);
         }
     }
 
@@ -68,7 +71,8 @@ ApplicationWindow {
         y: 257
         text: qsTr("Front")
         onClicked: {
-            car.turn(car.FRONT,1);
+            //car.turn(car.FRONT,1);
+            car.turn(0,1);
         }
     }
 

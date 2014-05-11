@@ -32,13 +32,21 @@ void CarController::accelerate(CarController::ACCELERATE_DIRECTION direction, do
 
 void CarController::turn(CarController::TURN_DIRECTION direction, double power)
 {
-    if(direction == CarController::RIGHT && power == 0){
-        setGPIO(left_GPIO(),1-power);
-        setGPIO(right_GPIO(),power);
+    qDebug() << "direction" << direction;
+    if(direction == CarController::RIGHT && power > 0){
+        qDebug() << "Right";
+        setGPIO(right_GPIO(),1);
+        setGPIO(left_GPIO(),0);
     }
-    else if (direction == CarController::LEFT && power == 0){
-        setGPIO(right_GPIO(),1-power);
-        setGPIO(left_GPIO(),power);
+    else if (direction == CarController::LEFT && power > 0){
+        qDebug() << "Left";
+        setGPIO(right_GPIO(),0);
+        setGPIO(left_GPIO(),1);
+    }
+    else {
+        qDebug() << "Front";
+        setGPIO(right_GPIO(),0);
+        setGPIO(left_GPIO(),0);
     }
 }
 
