@@ -58,23 +58,53 @@ ApplicationWindow {
         Item {
             id: controllers
             x : 0
+        }
+
+        Item {
+            id: item1
+            x: 31
+            y: 139
+            width: 200
+            height: 200
 
             Button {
-                id: button1
-                x: 192
-                y: 127
-                width: 155
-                height: 73
-                text: qsTr("Forward")
+                id: button6
+                x: 111
+                y: 250
+                width: 172
+                height: 65
+                text: qsTr("Stop")
                 onClicked: {
-                    car.accelerate(car.FORWARD,1);
+                    car.stop()
+                }
+            }
+
+            Button {
+                id: button5
+                x: -60
+                y: 87
+                text: qsTr("Front")
+                onClicked: {
+                    //car.turn(car.FRONT,1);
+                    car.turn(0,1);
+                }
+            }
+
+            Button {
+                id: button3
+                x: 12
+                y: 32
+                text: qsTr("Right")
+                onClicked: {
+                    //car.turn(car.RIGHT,1);
+                    car.turn(1,1);
                 }
             }
 
             Button {
                 id: button4
-                x: 192
-                y: 277
+                x: 161
+                y: 138
                 width: 155
                 height: 23
                 text: qsTr("Reverse")
@@ -86,8 +116,8 @@ ApplicationWindow {
 
             Button {
                 id: button2
-                x: -29
-                y: 277
+                x: 21
+                y: 138
                 text: qsTr("Left")
                 onClicked: {
                     //car.turn(car.LEFT,1);
@@ -96,36 +126,14 @@ ApplicationWindow {
             }
 
             Button {
-                id: button3
-                x: -29
-                y: 171
-                text: qsTr("Right")
+                id: button1
+                x: 266
+                y: 7
+                width: 155
+                height: 73
+                text: qsTr("Forward")
                 onClicked: {
-                    //car.turn(car.RIGHT,1);
-                    car.turn(1,1);
-                }
-            }
-
-            Button {
-                id: button5
-                x: -29
-                y: 226
-                text: qsTr("Front")
-                onClicked: {
-                    //car.turn(car.FRONT,1);
-                    car.turn(0,1);
-                }
-            }
-
-            Button {
-                id: button6
-                x: 78
-                y: 348
-                width: 172
-                height: 65
-                text: qsTr("Stop")
-                onClicked: {
-                    car.stop()
+                    car.accelerate(car.FORWARD,1);
                 }
             }
         }
