@@ -61,9 +61,9 @@ void CarController::setGPIO(int no, int value)
 {
     qDebug() << "Pin " << no << "is being put to " << value;
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QUrl url("http://"+ipAddress()+":8000/GPIO/" + QString::number(no) + "/value/"+QString::number(value));
-    url.setUserName("webiopi");
-    url.setPassword("raspberry");
+    QUrl url("http://"+ipAddress()+":" + QString::number(portNo()) + "/GPIO/" + QString::number(no) + "/value/"+QString::number(value));
+    url.setUserName(username());
+    url.setPassword(password());
     QNetworkReply *reply = manager->post(QNetworkRequest(url),"");
     qDebug() << reply->readAll();
 }

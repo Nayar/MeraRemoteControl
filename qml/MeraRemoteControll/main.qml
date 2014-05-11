@@ -9,6 +9,8 @@ ApplicationWindow {
 
     MeraCar {
         id: car
+        username: "webiopi"
+        password: "raspberry"
         ipAddress: "192.168.1.3"
         forward_GPIO: 2
         backward_GPIO: 3

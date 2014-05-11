@@ -28,6 +28,12 @@ class CarController : public QObject
 
     int m_left_GPIO;
 
+    int m_portNo;
+
+    QString m_username;
+
+QString m_password;
+
 public:
     enum TURN_DIRECTION {
         FRONT,
@@ -73,6 +79,21 @@ public:
         return m_left_GPIO;
     }
 
+    int portNo() const
+    {
+        return m_portNo;
+    }
+
+    QString username() const
+    {
+        return m_username;
+    }
+
+    QString password() const
+    {
+        return m_password;
+    }
+
 signals:
 
     void ipAddressChanged(QString arg);
@@ -84,6 +105,12 @@ signals:
     void right_GPIOChanged(int arg);
 
     void left_GPIOChanged(int arg);
+
+    void portNoChanged(int arg);
+
+    void usernameChanged(QString arg);
+
+    void passwordChanged(QString arg);
 
 public slots:
 
@@ -120,6 +147,27 @@ public slots:
         if (m_left_GPIO != arg) {
             m_left_GPIO = arg;
             emit left_GPIOChanged(arg);
+        }
+    }
+    void setPortNo(int arg)
+    {
+        if (m_portNo != arg) {
+            m_portNo = arg;
+            emit portNoChanged(arg);
+        }
+    }
+    void setUsername(QString arg)
+    {
+        if (m_username != arg) {
+            m_username = arg;
+            emit usernameChanged(arg);
+        }
+    }
+    void setPassword(QString arg)
+    {
+        if (m_password != arg) {
+            m_password = arg;
+            emit passwordChanged(arg);
         }
     }
 };
