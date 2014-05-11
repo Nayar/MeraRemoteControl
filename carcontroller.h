@@ -47,12 +47,19 @@ public:
         STOP
     };
 
+    enum gpio_function {
+        in,
+        out
+    };
+
     explicit CarController(QObject *parent = 0);
     Q_INVOKABLE void accelerate(ACCELERATE_DIRECTION direction, double power = 1);
     Q_INVOKABLE void turn(TURN_DIRECTION direction, double power = 1);
     Q_INVOKABLE void stop();
 
     void setGPIO(int no, int value);
+    void configGPIO(int no, gpio_function function);
+    void sendPOST(QUrl url);
 
     QString ipAddress() const
     {
@@ -124,6 +131,9 @@ public slots:
     void setForward_GPIO(int arg)
     {
         if (m_forward_GPIO != arg) {
+            setGPIO(m_forward_GPIO,0);
+            configGPIO(m_forward_GPIO,in);
+            configGPIO(arg,out);
             m_forward_GPIO = arg;
             emit forward_GPIOChanged(arg);
         }
@@ -131,6 +141,9 @@ public slots:
     void setBackward_GPIO(int arg)
     {
         if (m_backward_GPIO != arg) {
+            setGPIO(m_backward_GPIO,0);
+            configGPIO(m_backward_GPIO,in);
+            configGPIO(arg,out);
             m_backward_GPIO = arg;
             emit backward_GPIOChanged(arg);
         }
@@ -138,6 +151,9 @@ public slots:
     void setRight_GPIO(int arg)
     {
         if (m_right_GPIO != arg) {
+            setGPIO(m_right_GPIO,0);
+            configGPIO(m_right_GPIO,in);
+            configGPIO(arg,out);
             m_right_GPIO = arg;
             emit right_GPIOChanged(arg);
         }
@@ -145,6 +161,9 @@ public slots:
     void setLeft_GPIO(int arg)
     {
         if (m_left_GPIO != arg) {
+            setGPIO(m_left_GPIO,0);
+            configGPIO(m_left_GPIO,in);
+            configGPIO(arg,out);
             m_left_GPIO = arg;
             emit left_GPIOChanged(arg);
         }
