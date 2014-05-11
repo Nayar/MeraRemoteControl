@@ -60,6 +60,13 @@ public:
     void setGPIO(int no, int value);
     void configGPIO(int no, gpio_function function);
     void sendPOST(QUrl url);
+    void reset()
+    {
+        configGPIO(forward_GPIO(),out);
+        configGPIO(backward_GPIO(),out);
+        configGPIO(right_GPIO(),out);
+        configGPIO(left_GPIO(),out);
+    }
 
     QString ipAddress() const
     {
@@ -119,12 +126,15 @@ signals:
 
     void passwordChanged(QString arg);
 
+
+
 public slots:
 
     void setIpAddress(QString arg)
     {
         if (m_ipAddress != arg) {
             m_ipAddress = arg;
+            reset();
             emit ipAddressChanged(arg);
         }
     }
@@ -172,6 +182,7 @@ public slots:
     {
         if (m_portNo != arg) {
             m_portNo = arg;
+            reset();
             emit portNoChanged(arg);
         }
     }
@@ -179,6 +190,7 @@ public slots:
     {
         if (m_username != arg) {
             m_username = arg;
+            reset();
             emit usernameChanged(arg);
         }
     }
@@ -186,6 +198,7 @@ public slots:
     {
         if (m_password != arg) {
             m_password = arg;
+            reset();
             emit passwordChanged(arg);
         }
     }
