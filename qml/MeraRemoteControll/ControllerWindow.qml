@@ -1,10 +1,18 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.0
+import QtSensors 5.0
+import MeraCar 1.4
 
 Item {
     id: root
     width: 400
     height: 250
+
+    Accelerometer{
+        id: accelerometer
+        dataRate: 500
+
+    }
 
     Item {
         anchors.centerIn: parent
@@ -29,7 +37,7 @@ Item {
             text: qsTr("Front")
             onClicked: {
                 //car.turn(car.FRONT,1);
-                car.turn(0,1);
+                car.turn(MeraCar.FRONT,1);
             }
         }
 
@@ -42,7 +50,7 @@ Item {
             text: qsTr("Right")
             onClicked: {
                 //car.turn(car.RIGHT,1);
-                car.turn(1,1);
+                car.turn(MeraCar.RIGHT,1);
             }
         }
 
@@ -55,7 +63,7 @@ Item {
             text: qsTr("Reverse")
             onClicked: {
                 //car.accelerate(car.BACKWARD,1);
-                car.accelerate(1,1);
+                car.accelerate(MeraCar.BACKWARD,1);
             }
         }
 
@@ -68,7 +76,7 @@ Item {
             text: qsTr("Left")
             onClicked: {
                 //car.turn(car.LEFT,1);
-                car.turn(2,1);
+                car.turn(MeraCar.LEFT,1);
             }
         }
 
@@ -80,8 +88,15 @@ Item {
             height: 79
             text: qsTr("Forward")
             onClicked: {
-                car.accelerate(car.FORWARD,1);
+                car.accelerate(MeraCar.FORWARD,1);
             }
         }
+    }
+
+    Label {
+        id: label1
+        x: 30
+        y: 130
+        text: "X" + accelerometer.reading.x
     }
 }
