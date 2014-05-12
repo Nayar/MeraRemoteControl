@@ -31,6 +31,10 @@ ApplicationWindow {
         id: mainArea
         anchors.fill: parent
 
+        Component.onCompleted: {
+            mainArea.state = "control"
+        }
+
         states: [
             State {
                 name: "control"
