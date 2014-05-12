@@ -83,10 +83,4 @@ Item {
             car.accelerate(MeraCar.FORWARD,1);
         }
     }
-
-    Led {
-        x: 8
-        y: 8
-    }
-
 }

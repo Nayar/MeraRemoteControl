@@ -25,56 +25,9 @@ ApplicationWindow {
         }
     }
 
-
-
-    Item {
+    MainArea{
         id: mainArea
         anchors.fill: parent
-
-        Component.onCompleted: {
-            mainArea.state = "control"
-        }
-
-        states: [
-            State {
-                name: "control"
-                PropertyChanges {
-                    target: controllers;
-                    x: 0
-                    anchors.centerIn: mainArea
-                }
-                PropertyChanges {
-                    target: settings;
-                    x : parent.width
-                }
-            },
-            State {
-                name: "settings"
-                PropertyChanges {
-                    target: settings;
-                    x : 0
-                    anchors.horizontalCenter: mainArea.horizontalCenter
-                }
-                PropertyChanges {
-                    target: controllers;
-                    x : -parent.width
-                }
-            }
-
-        ]
-
-        ControllerWindow{
-            id: controllers
-            x: 0
-            Behavior on x { SmoothedAnimation { velocity: 5000 } }
-        }
-
-        SettingsWindow{
-            id: settings
-            x: parent.width
-            height: parent.height
-            Behavior on x { SmoothedAnimation { velocity: 5000 } }
-        }
     }
 
     menuBar: MenuBar {
