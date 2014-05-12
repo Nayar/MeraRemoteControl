@@ -10,7 +10,6 @@ ApplicationWindow {
 
     MeraCar {
         id: car
-
         username: "webiopi"
         password: "raspberry"
         ipAddress: "192.168.1.3"
@@ -21,6 +20,7 @@ ApplicationWindow {
         left_GPIO: 17
 
         Component.onCompleted: {
+            console.log("car done")
             car.reset();
         }
     }
