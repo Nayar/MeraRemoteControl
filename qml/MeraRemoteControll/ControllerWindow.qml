@@ -10,13 +10,13 @@ Item {
 
     Slider {
         id: sliderHorizontal1
-        x: 44
+        x: 8
         y: 70
         width: 200
         height: 112
         minimumValue: -1
         value: 0
-        anchors.horizontalCenterOffset: -56
+        anchors.horizontalCenterOffset: -92
         anchors.horizontalCenter: parent.horizontalCenter
         onFocusChanged: {
             value: 0
@@ -25,10 +25,21 @@ Item {
 
     Slider {
         id: sliderVertical1
-        x: 266
-        y: 64
+        x: 314
+        y: 70
+        minimumValue: -1
+        value: 0
         width: 78
         height: 123
         orientation: 0
+        onValueChanged: {
+            car.accelerate(value)
+        }
+    }
+
+    ProgressBar {
+        id: progressBar1
+        x: 100
+        y: 8
     }
 }

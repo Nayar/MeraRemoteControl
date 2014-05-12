@@ -11,18 +11,25 @@ CarController::CarController(QObject *parent) :
 
 }
 
-void CarController::accelerate(ACCELERATE_DIRECTION direction, double power)
+void CarController::accelerate(double power)
 {
-    qDebug() << "direction" << direction;
-    if((direction == FORWARD) && (power > 0)){
-        qDebug() << "Forward";
-        setGPIO(forward_GPIO(),1);
-        setGPIO(backward_GPIO(),0);
+    if(power > 0.2){
+        if(accelerateDirection() != FORWARD){
+            qDebug() << "Forward";
+            setGPIO(forward_GPIO(),1);
+            setGPIO(backward_GPIO(),0);
+            setAccelerateDirection(FORWARD);
+        }
+        setGPIO_PWM(forward_GPIO(),power);
     }
-    else if ((direction == BACKWARD) && (power > 0)){
-        qDebug() << "Backward";
-        setGPIO(forward_GPIO(),0);
-        setGPIO(backward_GPIO(),1);
+    else if (power < -0.2){
+        if(accelerateDirection() != BACKWARD){
+            qDebug() << "Backward";
+            setGPIO(forward_GPIO(),0);
+            setGPIO(backward_GPIO(),1);
+            setAccelerateDirection(BACKWARD);
+        }
+        setGPIO_PWM(backward_GPIO(),-power);
     }
     else{
         setGPIO(forward_GPIO(),0);
@@ -60,6 +67,12 @@ void CarController::stop()
 void CarController::setGPIO(int no, int value)
 {
     QUrl url("http://"+ipAddress()+":" + QString::number(portNo()) + "/GPIO/" + QString::number(no) + "/value/"+QString::number(value));
+    sendPOST(url);
+}
+
+void CarController::setGPIO_PWM(int no, double value)
+{
+    QUrl url("http://"+ipAddress()+":" + QString::number(portNo()) + "/GPIO/" + QString::number(no) + "/pulseRatio/"+QString::number(value));
     sendPOST(url);
 }
 

@@ -5,6 +5,12 @@
 
 class CarController : public QObject
 {
+
+public :enum ACCELERATE_DIRECTION {
+        FORWARD,
+        BACKWARD
+    };
+private:
     Q_OBJECT
     Q_ENUMS(TURN_DIRECTION)
     Q_ENUMS(ACCELERATE_DIRECTION)
@@ -18,6 +24,8 @@ class CarController : public QObject
     Q_PROPERTY(int backward_GPIO READ backward_GPIO WRITE setBackward_GPIO NOTIFY backward_GPIOChanged)
     Q_PROPERTY(int right_GPIO READ right_GPIO WRITE setRight_GPIO NOTIFY right_GPIOChanged)
     Q_PROPERTY(int left_GPIO READ left_GPIO WRITE setLeft_GPIO NOTIFY left_GPIOChanged)
+    Q_PROPERTY(ACCELERATE_DIRECTION accelerateDirection READ accelerateDirection WRITE setAccelerateDirection NOTIFY accelerateDirectionChanged)
+
 
     QString m_ipAddress;
 
@@ -33,9 +41,11 @@ class CarController : public QObject
 
     QString m_username;
 
-QString m_password;
+    QString m_password;
 
-bool m_carConnected;
+    bool m_carConnected;
+
+    ACCELERATE_DIRECTION m_accelerateDirection;
 
 public:
     enum TURN_DIRECTION {
@@ -44,24 +54,24 @@ public:
         LEFT
     };
 
-    enum ACCELERATE_DIRECTION {
-        FORWARD,
-        BACKWARD,
-        STOP
-    };
-
     enum gpio_function {
         in,
         out
     };
 
+//    enum ACCELERATE_DIRECTION {
+//        FORWARD,
+//        BACKWARD
+//    };
+
     explicit CarController(QObject *parent = 0);
-    Q_INVOKABLE void accelerate(ACCELERATE_DIRECTION direction, double power = 1);
+    Q_INVOKABLE void accelerate(double power = 0);
     Q_INVOKABLE void turn(TURN_DIRECTION direction, double power = 1);
     Q_INVOKABLE void stop();
 
     void init();
     void setGPIO(int no, int value);
+    void setGPIO_PWM(int no, double value);
     void configGPIO(int no, gpio_function function);
     void sendPOST(QUrl url);
     Q_INVOKABLE void reset()
@@ -117,6 +127,11 @@ public:
         return m_carConnected;
     }
 
+    ACCELERATE_DIRECTION accelerateDirection() const
+    {
+        return m_accelerateDirection;
+    }
+
 signals:
 
     void ipAddressChanged(QString arg);
@@ -138,6 +153,8 @@ signals:
 
 
     void carConnectedChanged(bool arg);
+
+    void accelerateDirectionChanged(ACCELERATE_DIRECTION arg);
 
 public slots:
 
@@ -218,6 +235,13 @@ public slots:
         if (m_carConnected != arg) {
             m_carConnected = arg;
             emit carConnectedChanged(arg);
+        }
+    }
+    void setAccelerateDirection(ACCELERATE_DIRECTION arg)
+    {
+        if (m_accelerateDirection != arg) {
+            m_accelerateDirection = arg;
+            emit accelerateDirectionChanged(arg);
         }
     }
 };
