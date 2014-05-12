@@ -20,7 +20,7 @@ void CarController::accelerate(double power)
             setGPIO(backward_GPIO(),0);
             setAccelerateDirection(FORWARD);
         }
-        setGPIO_PWM(forward_GPIO(),power);
+        setForward_GPIOPWM(power);
     }
     else if (power < -0.2){
         if(accelerateDirection() != BACKWARD){
@@ -33,6 +33,7 @@ void CarController::accelerate(double power)
     }
     else{
         setGPIO(forward_GPIO(),0);
+        setForward_GPIOPWM(0);
         setGPIO(backward_GPIO(),0);
     }
 }

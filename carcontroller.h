@@ -6,10 +6,12 @@
 class CarController : public QObject
 {
 
-public :enum ACCELERATE_DIRECTION {
+public:
+    enum ACCELERATE_DIRECTION {
         FORWARD,
         BACKWARD
     };
+
 private:
     Q_OBJECT
     Q_ENUMS(TURN_DIRECTION)
@@ -21,6 +23,7 @@ private:
     Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
 
     Q_PROPERTY(int forward_GPIO READ forward_GPIO WRITE setForward_GPIO NOTIFY forward_GPIOChanged)
+    Q_PROPERTY(double forward_GPIOPWM READ forward_GPIOPWM WRITE setForward_GPIOPWM NOTIFY forward_GPIOPWMChanged)
     Q_PROPERTY(int backward_GPIO READ backward_GPIO WRITE setBackward_GPIO NOTIFY backward_GPIOChanged)
     Q_PROPERTY(int right_GPIO READ right_GPIO WRITE setRight_GPIO NOTIFY right_GPIOChanged)
     Q_PROPERTY(int left_GPIO READ left_GPIO WRITE setLeft_GPIO NOTIFY left_GPIOChanged)
@@ -46,6 +49,8 @@ private:
     bool m_carConnected;
 
     ACCELERATE_DIRECTION m_accelerateDirection;
+
+    double m_forward_GPIOPWM;
 
 public:
     enum TURN_DIRECTION {
@@ -132,6 +137,11 @@ public:
         return m_accelerateDirection;
     }
 
+    double forward_GPIOPWM() const
+    {
+        return m_forward_GPIOPWM;
+    }
+
 signals:
 
     void ipAddressChanged(QString arg);
@@ -155,6 +165,8 @@ signals:
     void carConnectedChanged(bool arg);
 
     void accelerateDirectionChanged(ACCELERATE_DIRECTION arg);
+
+    void forward_GPIOPWMChanged(double arg);
 
 public slots:
 
@@ -242,6 +254,14 @@ public slots:
         if (m_accelerateDirection != arg) {
             m_accelerateDirection = arg;
             emit accelerateDirectionChanged(arg);
+        }
+    }
+    void setForward_GPIOPWM(double arg)
+    {
+        if (m_forward_GPIOPWM != arg) {
+            m_forward_GPIOPWM = arg;
+            setGPIO_PWM(forward_GPIO(),arg);
+            emit forward_GPIOPWMChanged(arg);
         }
     }
 };

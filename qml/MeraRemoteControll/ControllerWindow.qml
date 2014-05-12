@@ -11,7 +11,7 @@ Item {
     Slider {
         id: sliderHorizontal1
         x: 8
-        y: 70
+        y: 130
         width: 200
         height: 112
         minimumValue: -1
@@ -26,7 +26,7 @@ Item {
     Slider {
         id: sliderVertical1
         x: 314
-        y: 70
+        y: 119
         minimumValue: -1
         value: 0
         width: 78
@@ -39,7 +39,62 @@ Item {
 
     ProgressBar {
         id: progressBar1
-        x: 100
-        y: 8
+        x: 150
+        y: 12
+        width: 75
+        height: 15
+        value: car.forward_GPIOPWM
+    }
+
+    Label {
+        id: label1
+        x: 36
+        y: 12
+        text: qsTr("GPIO Forward")
+    }
+
+    ProgressBar {
+        id: progressBar2
+        x: 150
+        y: 41
+        width: 75
+        height: 15
+    }
+
+    Label {
+        id: label2
+        x: 36
+        y: 41
+        text: qsTr("GPIO Forward")
+    }
+
+    ProgressBar {
+        id: progressBar3
+        x: 150
+        y: 70
+        width: 75
+        height: 15
+    }
+
+    Label {
+        id: label3
+        x: 36
+        y: 70
+        text: qsTr("GPIO Forward")
+    }
+
+    ProgressBar {
+        id: progressBar4
+        x: 150
+        y: 99
+        width: 75
+        height: 15
+    }
+
+    Label {
+        id: label4
+        x: 36
+        y: 99
+        text: qsTr("GPIO Forward")
     }
 }
