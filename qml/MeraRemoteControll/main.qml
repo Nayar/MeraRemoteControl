@@ -37,6 +37,7 @@ ApplicationWindow {
                 PropertyChanges {
                     target: controllers;
                     x: 0
+                    anchors.centerIn: mainArea
                 }
                 PropertyChanges {
                     target: settings;
@@ -48,6 +49,7 @@ ApplicationWindow {
                 PropertyChanges {
                     target: settings;
                     x : 0
+                    anchors.centerIn: mainArea
                 }
                 PropertyChanges {
                     target: controllers;
@@ -60,16 +62,12 @@ ApplicationWindow {
         ControllerWindow{
             id: controllers
             x: 0
-            width: parent.width
-            height: parent.height
             Behavior on x { SmoothedAnimation { velocity: 5000 } }
         }
 
         SettingsWindow{
             id: settings
             x: parent.width
-            width: parent.width
-            height: parent.height
             Behavior on x { SmoothedAnimation { velocity: 5000 } }
         }
     }
