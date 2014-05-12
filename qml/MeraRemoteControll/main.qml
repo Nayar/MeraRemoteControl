@@ -53,7 +53,7 @@ ApplicationWindow {
                 PropertyChanges {
                     target: settings;
                     x : 0
-                    anchors.centerIn: mainArea
+                    anchors.horizontalCenter: mainArea.horizontalCenter
                 }
                 PropertyChanges {
                     target: controllers;
@@ -72,6 +72,7 @@ ApplicationWindow {
         SettingsWindow{
             id: settings
             x: parent.width
+            height: parent.height
             Behavior on x { SmoothedAnimation { velocity: 5000 } }
         }
     }

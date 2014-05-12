@@ -5,12 +5,13 @@ import MeraCar 1.4
 Flickable {
     width: 400
     height: 400
-    contentHeight: grid1.height + 250
+    contentHeight: grid1.height + 100
 
     property variant gpio_model : [2,3,4,7,8,9,10,11,17,18,22,23,24]
 
 
     Grid {
+        y : 8
         anchors.horizontalCenter: parent.horizontalCenter
         id: grid1
         columns: 2

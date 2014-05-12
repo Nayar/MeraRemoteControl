@@ -84,10 +84,9 @@ Item {
         }
     }
 
-    Label {
-        id: label1
+    Led {
         x: 8
         y: 8
-        text: qsTr("Connected")
     }
+
 }
