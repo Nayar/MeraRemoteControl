@@ -20,10 +20,10 @@ Item {
         anchors.centerIn: parent
         Button {
             id: button6
-            x: -13
-            y: -30
+            x: 15
+            y: -19
             width: 172
-            height: 65
+            height: 44
             text: qsTr("Stop")
             onClicked: {
                 car.stop()
@@ -33,7 +33,7 @@ Item {
         Button {
             id: button5
             x: -190
-            y: -115
+            y: -19
             width: 171
             height: 44
             text: qsTr("Front")
@@ -45,8 +45,8 @@ Item {
 
         Button {
             id: button3
-            x: -99
-            y: -65
+            x: -190
+            y: 41
             width: 80
             height: 29
             text: qsTr("Right")
@@ -58,9 +58,9 @@ Item {
 
         Button {
             id: button4
-            x: -13
+            x: 76
             y: 41
-            width: 172
+            width: 83
             height: 29
             text: qsTr("Reverse")
             onClicked: {
@@ -84,21 +84,21 @@ Item {
 
         Button {
             id: button1
-            x: -13
-            y: -115
-            width: 170
-            height: 79
+            x: 83
+            y: -59
+            width: 74
+            height: 23
             text: qsTr("Forward")
             onClicked: {
                 car.accelerate(MeraCar.FORWARD,1);
             }
         }
-    }
 
-    Label {
-        id: label1
-        x: 30
-        y: 130
-        text: "X" + accel1.reading.x.toPrecision(1)
+        Label {
+            id: label1
+            x: -180
+            y: -93
+            text: qsTr("Label")
+        }
     }
 }

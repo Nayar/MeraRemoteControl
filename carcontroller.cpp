@@ -81,9 +81,10 @@ void CarController::configGPIO(int no, gpio_function function)
 void CarController::sendPOST(QUrl url)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QUrl params;
     url.setUserName(username());
     url.setPassword(password());
     qDebug() << "POSTING" << url.toString();
     QNetworkReply *reply = manager->post(QNetworkRequest(url),"");
-    qDebug() << reply->readAll();
+    //qDebug() << reply->readAll();
 }
