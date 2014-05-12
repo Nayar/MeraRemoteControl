@@ -8,6 +8,7 @@ class CarController : public QObject
     Q_OBJECT
     Q_ENUMS(TURN_DIRECTION)
     Q_ENUMS(ACCELERATE_DIRECTION)
+    Q_PROPERTY(bool carConnected READ carConnected WRITE setCarConnected NOTIFY carConnectedChanged)
     Q_PROPERTY(QString ipAddress READ ipAddress WRITE setIpAddress NOTIFY ipAddressChanged)
     Q_PROPERTY(int portNo READ portNo WRITE setPortNo NOTIFY portNoChanged)
     Q_PROPERTY(QString username READ username WRITE setUsername NOTIFY usernameChanged)
@@ -34,6 +35,8 @@ class CarController : public QObject
 
 QString m_password;
 
+bool m_carConnected;
+
 public:
     enum TURN_DIRECTION {
         FRONT,
@@ -57,10 +60,11 @@ public:
     Q_INVOKABLE void turn(TURN_DIRECTION direction, double power = 1);
     Q_INVOKABLE void stop();
 
+    void init();
     void setGPIO(int no, int value);
     void configGPIO(int no, gpio_function function);
     void sendPOST(QUrl url);
-    void reset()
+    Q_INVOKABLE void reset()
     {
         configGPIO(forward_GPIO(),out);
         configGPIO(backward_GPIO(),out);
@@ -108,6 +112,11 @@ public:
         return m_password;
     }
 
+    bool carConnected() const
+    {
+        return m_carConnected;
+    }
+
 signals:
 
     void ipAddressChanged(QString arg);
@@ -127,6 +136,8 @@ signals:
     void passwordChanged(QString arg);
 
 
+
+    void carConnectedChanged(bool arg);
 
 public slots:
 
@@ -200,6 +211,13 @@ public slots:
             m_password = arg;
             reset();
             emit passwordChanged(arg);
+        }
+    }
+    void setCarConnected(bool arg)
+    {
+        if (m_carConnected != arg) {
+            m_carConnected = arg;
+            emit carConnectedChanged(arg);
         }
     }
 };

@@ -19,7 +19,7 @@ Flickable {
         columnSpacing: 25
         horizontalItemAlignment: Grid.AlignHCenter
 
-        Text {
+        Label  {
             id: text1
             x: 51
             y: 117
@@ -37,7 +37,7 @@ Flickable {
             font.pixelSize: 12
         }
 
-        Text {
+        Label  {
             id: text2
             x: 86
             y: 193
@@ -55,7 +55,7 @@ Flickable {
             font.pixelSize: 12
         }
 
-        Text {
+        Label  {
             id: textUsername
             x: 51
             y: 117
@@ -73,7 +73,7 @@ Flickable {
             font.pixelSize: 12
         }
 
-        Text {
+        Label  {
             id: textPassword
             x: 51
             y: 117
@@ -91,7 +91,7 @@ Flickable {
             font.pixelSize: 12
         }
 
-        Text {
+        Label  {
             id: textGPIOForward
             x: 88
             y: 193
@@ -105,7 +105,7 @@ Flickable {
             currentIndex: gpio_model.indexOf(car.forward_GPIO.valueOf())
         }
 
-        Text {
+        Label  {
             id: text4
             x: 129
             y: 193
@@ -119,7 +119,7 @@ Flickable {
             currentIndex: gpio_model.indexOf(car.backward_GPIO.valueOf())
         }
 
-        Text {
+        Label  {
             id: text6
             x: 69
             y: 206
@@ -133,7 +133,7 @@ Flickable {
             currentIndex: gpio_model.indexOf(car.right_GPIO.valueOf())
         }
 
-        Text {
+        Label  {
             id: text5
             x: 69
             y: 206

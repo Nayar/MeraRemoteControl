@@ -9,9 +9,11 @@ Item {
     height: 250
 
     Accelerometer{
-        id: accelerometer
-        dataRate: 500
+        id: accel1
 
+        dataRate: 50
+
+        active: true
     }
 
     Item {
@@ -97,6 +99,6 @@ Item {
         id: label1
         x: 30
         y: 130
-        text: "X" + accelerometer.reading.x
+        text: "X" + accel1.reading.x.toPrecision(1)
     }
 }

@@ -10,15 +10,19 @@ ApplicationWindow {
 
     MeraCar {
         id: car
-        forward_GPIO: 2
-        backward_GPIO: 3
-        right_GPIO: 4
-        left_GPIO: 17
+
         username: "webiopi"
         password: "raspberry"
         ipAddress: "192.168.1.3"
         portNo: 8000
+        forward_GPIO: 2
+        backward_GPIO: 3
+        right_GPIO: 4
+        left_GPIO: 17
 
+        Component.onCompleted: {
+            car.reset();
+        }
     }
 
 
@@ -58,7 +62,7 @@ ApplicationWindow {
             x: 0
             width: parent.width
             height: parent.height
-            Behavior on x { SmoothedAnimation { velocity: 1000 } }
+            Behavior on x { SmoothedAnimation { velocity: 5000 } }
         }
 
         SettingsWindow{
@@ -66,7 +70,7 @@ ApplicationWindow {
             x: parent.width
             width: parent.width
             height: parent.height
-            Behavior on x { SmoothedAnimation { velocity: 1000 } }
+            Behavior on x { SmoothedAnimation { velocity: 5000 } }
         }
     }
 
