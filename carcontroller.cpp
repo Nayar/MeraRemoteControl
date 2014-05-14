@@ -38,24 +38,39 @@ void CarController::accelerate(double power)
     }
 }
 
-void CarController::turn(TURN_DIRECTION direction, double power)
+void CarController::turn(double power)
 {
-    qDebug() << "direction" << direction;
-    if(direction == RIGHT && power > 0){
-        qDebug() << "Right";
-        setGPIO(right_GPIO(),1);
-        setGPIO(left_GPIO(),0);
+    int pinToBeActivated;
+    int pinToBeActivatedComplement;
+    bool setupRequired = false;
+
+    if(power > 0.2){
+        pinToBeActivated = right_GPIO();
+        pinToBeActivatedComplement = left_GPIO();
+        if(turnDirection() != RIGHT){
+            setTurnDirection(RIGHT);
+            setupRequired = true;
+        }
     }
-    else if (direction == LEFT && power > 0){
-        qDebug() << "Left";
-        setGPIO(right_GPIO(),0);
-        setGPIO(left_GPIO(),1);
+    else if (power < -0.2){
+        pinToBeActivated = left_GPIO();
+        pinToBeActivatedComplement = right_GPIO();
+        if(turnDirection() != LEFT){
+            setupRequired = true;
+            setTurnDirection(LEFT);
+        }
     }
     else {
         qDebug() << "Front";
         setGPIO(right_GPIO(),0);
         setGPIO(left_GPIO(),0);
+        return;
     }
+    if(setupRequired){
+        setGPIO(pinToBeActivatedComplement,0);
+        setGPIO(pinToBeActivated,1);
+    }
+    setGPIO_PWM(pinToBeActivated,power);
 }
 
 void CarController::stop()

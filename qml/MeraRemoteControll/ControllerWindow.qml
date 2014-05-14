@@ -18,8 +18,8 @@ Item {
         value: 0
         anchors.horizontalCenterOffset: -92
         anchors.horizontalCenter: parent.horizontalCenter
-        onFocusChanged: {
-            value: 0
+        onValueChanged: {
+            car.turn(value)
         }
     }
 

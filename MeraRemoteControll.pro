@@ -8,7 +8,8 @@ QML_IMPORT_PATH =
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    carcontroller.cpp
+    carcontroller.cpp \
+    gpio.cpp
 
 # Installation path
 # target.path =
@@ -18,7 +19,8 @@ include(qtquick2controlsapplicationviewer/qtquick2controlsapplicationviewer.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    carcontroller.h
+    carcontroller.h \
+    gpio.h
 
 OTHER_FILES += \
     qml/MeraRemoteControll/SettingsWindow.qml \
