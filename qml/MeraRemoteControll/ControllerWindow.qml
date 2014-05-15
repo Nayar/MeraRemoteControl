@@ -8,6 +8,14 @@ Item {
     width: 400
     height: 250
 
+    Accelerometer {
+        id: accel
+
+        dataRate: 25
+
+        active: true
+    }
+
     Slider {
         id: sliderHorizontal1
         x: 8
@@ -126,5 +134,12 @@ Item {
                 text: car.gpio_left.PWM.toFixed(2)
             }
         }
+    }
+
+    Label {
+        id: label5
+        x: 36
+        y: 101
+        text: qsTr("Acceleromter (y-axis)") + accel.reading.y
     }
 }
