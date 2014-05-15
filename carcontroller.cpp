@@ -79,7 +79,9 @@ void CarController::turn(double power)
     else {
         qDebug() << "Front";
         gpio_right()->setValue(0);
+        gpio_right()->setPWM(0);
         gpio_left()->setValue(0);
+        gpio_left()->setPWM(0);
         return;
     }
     if(setupRequired){

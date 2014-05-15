@@ -13,7 +13,7 @@ Item {
 
         dataRate: 10
 
-        active: true
+        active: false
 
         onReadingChanged: {
             car.turn(-accel.reading.y/10)

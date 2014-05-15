@@ -104,6 +104,9 @@ Flickable {
             id: comboGPIOForward
             model: gpio_model
             currentIndex: gpio_model.indexOf(car.gpio_forward.number.valueOf())
+            onCurrentTextChanged: {
+                car.gpio_forward.setNumber(comboGPIOForward.currentText.valueOf())
+            }
         }
 
         Label  {
@@ -118,6 +121,9 @@ Flickable {
             id: comboGPIOBackward
             model: gpio_model
             currentIndex: gpio_model.indexOf(car.gpio_backward.number.valueOf())
+            onCurrentTextChanged: {
+                car.gpio_backward.setNumber(comboGPIOBackward.currentText.valueOf())
+            }
         }
 
         Label  {
@@ -132,6 +138,9 @@ Flickable {
             id: comboGPIORight
             model: gpio_model
             currentIndex: gpio_model.indexOf(car.gpio_right.number.valueOf())
+            onCurrentTextChanged: {
+                car.gpio_right.setNumber(comboGPIORight.currentText.valueOf())
+            }
         }
 
         Label  {
