@@ -11,9 +11,13 @@ Item {
     Accelerometer {
         id: accel
 
-        dataRate: 25
+        dataRate: 10
 
         active: true
+
+        onReadingChanged: {
+            car.turn(-accel.reading.y/10)
+        }
     }
 
     Slider {
@@ -23,7 +27,7 @@ Item {
         width: 200
         height: 112
         minimumValue: -1
-        value: 0
+        value: car.gpio_right.PWM - car.gpio_left.PWM
         anchors.horizontalCenterOffset: -92
         anchors.horizontalCenter: parent.horizontalCenter
         onValueChanged: {
@@ -140,6 +144,17 @@ Item {
         id: label5
         x: 36
         y: 101
-        text: qsTr("Acceleromter (y-axis)") + accel.reading.y
+        text: qsTr("Acceleromter Turning")
+        CheckBox{
+            x: -40
+            onCheckedChanged: {
+                if(checked){
+                    accel.active = true;
+                }
+                else {
+                    accel.active = false;
+                }
+            }
+        }
     }
 }
