@@ -8,7 +8,21 @@
 CarController::CarController(QObject *parent) :
     QObject(parent)
 {
+    qDebug() << "Constructor starting";
+    qDebug() << m_ipAddress;
+    m_gpio_forward = new GPIO(this);
+    m_gpio_backward = new GPIO(this);
+    m_gpio_right = new GPIO(this);
+    m_gpio_left = new GPIO(this);
+}
 
+bool CarController::setup()
+{
+//    m_gpio_forward->setFunction(GPIO::out);
+//    m_gpio_backward->setFunction(GPIO::out);
+//    m_gpio_right->setFunction(GPIO::out);
+//    m_gpio_left->setFunction(GPIO::out);
+    return true;
 }
 
 void CarController::accelerate(double power)
@@ -16,95 +30,68 @@ void CarController::accelerate(double power)
     if(power > 0.2){
         if(accelerateDirection() != FORWARD){
             qDebug() << "Forward";
-            setGPIO(forward_GPIO(),1);
-            setGPIO(backward_GPIO(),0);
+            gpio_forward()->setValue(1);
+            gpio_backward()->setValue(0);
             setAccelerateDirection(FORWARD);
         }
-        setForward_GPIOPWM(power);
+        gpio_forward()->setPWM(power);
     }
     else if (power < -0.2){
         if(accelerateDirection() != BACKWARD){
             qDebug() << "Backward";
-            setGPIO(forward_GPIO(),0);
-            setGPIO(backward_GPIO(),1);
+            gpio_forward()->setValue(0);
+            gpio_backward()->setValue(1);
             setAccelerateDirection(BACKWARD);
         }
-        setGPIO_PWM(backward_GPIO(),-power);
+        gpio_backward()->setPWM(-power);
     }
     else{
-        setGPIO(forward_GPIO(),0);
-        setForward_GPIOPWM(0);
-        setGPIO(backward_GPIO(),0);
+        gpio_forward()->setValue(0);
+        gpio_backward()->setValue(0);
     }
 }
 
 void CarController::turn(double power)
 {
-    int pinToBeActivated;
-    int pinToBeActivatedComplement;
+    GPIO *pinToBeActivated;
+    GPIO *pinToBeActivatedComplement;
     bool setupRequired = false;
 
     if(power > 0.2){
-        pinToBeActivated = right_GPIO();
-        pinToBeActivatedComplement = left_GPIO();
+        pinToBeActivated = gpio_right();
+        pinToBeActivatedComplement = gpio_left();
         if(turnDirection() != RIGHT){
             setTurnDirection(RIGHT);
             setupRequired = true;
         }
     }
     else if (power < -0.2){
-        pinToBeActivated = left_GPIO();
-        pinToBeActivatedComplement = right_GPIO();
+        pinToBeActivated = gpio_left();
+        pinToBeActivatedComplement = gpio_right();
         if(turnDirection() != LEFT){
             setupRequired = true;
             setTurnDirection(LEFT);
         }
+        power = -power;
     }
     else {
         qDebug() << "Front";
-        setGPIO(right_GPIO(),0);
-        setGPIO(left_GPIO(),0);
+        gpio_right()->setValue(0);
+        gpio_left()->setValue(0);
         return;
     }
     if(setupRequired){
-        setGPIO(pinToBeActivatedComplement,0);
-        setGPIO(pinToBeActivated,1);
+        pinToBeActivatedComplement->setValue(0);
+        pinToBeActivated->setValue(1);
     }
-    setGPIO_PWM(pinToBeActivated,power);
+    pinToBeActivated->setPWM(power);
 }
 
 void CarController::stop()
 {
     qDebug() << "Stop";
-    setGPIO(forward_GPIO(),0);
-    setGPIO(backward_GPIO(),0);
-}
-
-void CarController::setGPIO(int no, int value)
-{
-    QUrl url("http://"+ipAddress()+":" + QString::number(portNo()) + "/GPIO/" + QString::number(no) + "/value/"+QString::number(value));
-    sendPOST(url);
-}
-
-void CarController::setGPIO_PWM(int no, double value)
-{
-    QUrl url("http://"+ipAddress()+":" + QString::number(portNo()) + "/GPIO/" + QString::number(no) + "/pulseRatio/"+QString::number(value));
-    sendPOST(url);
-}
-
-void CarController::configGPIO(int no, gpio_function function)
-{
-    QString function_string;
-    if(function == in){
-        function_string = "in";
-    }
-    else if(function == out){
-        function_string = "out";
-    }
-
-    QUrl url("http://"+ipAddress()+":" + QString::number(portNo()) + "/GPIO/" + QString::number(no) + "/function/"+function_string);
-
-    sendPOST(url);
+    this->accelerate(0);
+    this->turn(0);
 }
 
 void CarController::sendPOST(QUrl url)

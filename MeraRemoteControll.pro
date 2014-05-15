@@ -20,7 +20,8 @@ qtcAddDeployment()
 
 HEADERS += \
     carcontroller.h \
-    gpio.h
+    gpio.h \
+    post.h
 
 OTHER_FILES += \
     qml/MeraRemoteControll/SettingsWindow.qml \

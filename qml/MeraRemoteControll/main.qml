@@ -14,14 +14,14 @@ ApplicationWindow {
         password: "raspberry"
         ipAddress: "192.168.1.3"
         portNo: 8000
-        forward_GPIO: 2
-        backward_GPIO: 3
-        right_GPIO: 4
-        left_GPIO: 17
+        gpio_forward.number: 2
+        gpio_backward.number: 3
+        gpio_right.number: 4
+        gpio_left.number: 17
 
         Component.onCompleted: {
-            console.log("car done")
-            car.reset();
+            console.log("car done");
+            car.setup();
         }
     }
 

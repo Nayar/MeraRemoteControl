@@ -2,24 +2,46 @@
 #define GPIO_H
 
 #include <QObject>
+#include "carcontroller.h"
+
+class CarController;
 
 class GPIO : public QObject
 {
+public:
+    enum Function{
+        in,
+        out
+    };
+
+private:
+
     Q_OBJECT
-    Q_PROPERTY(int id READ id WRITE setNo NOTIFY noChanged)
+    Q_PROPERTY(int number READ number WRITE setNumber NOTIFY numberChanged)
+    Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
     Q_PROPERTY(double PWM READ PWM WRITE setPWM NOTIFY PWMChanged)
-    Q_PROPERTY(bool state READ state WRITE setState NOTIFY stateChanged)
+    Q_PROPERTY(Function function READ function WRITE setFunction NOTIFY functionChanged)
+
+    CarController *parent;
 
     int m_no;
 
     double m_PWM;
 
-    bool m_state;
+    int m_value;
+
+    Function m_function;
+
+    int m_number;
 
 public:
     explicit GPIO(QObject *parent = 0);
+    bool operator !=(GPIO * other);
+    void setGPIO(int no, int value);
+    void setGPIO_PWM(int no, double value);
+    void configGPIO(int no, Function function);
 
-int id() const
+int number() const
 {
     return m_no;
 }
@@ -29,40 +51,51 @@ double PWM() const
     return m_PWM;
 }
 
-bool state() const
+int value() const
 {
-    return m_state;
+    return m_value;
+}
+
+Function function() const
+{
+    return m_function;
 }
 
 signals:
 
-void noChanged(int arg);
+void numberChanged(int arg);
 
 void PWMChanged(double arg);
 
-void stateChanged(bool arg);
+void valueChanged(int arg);
+
+void functionChanged(Function arg);
 
 public slots:
 
-void setNo(int arg)
-{
-    if (m_no != arg) {
-        m_no = arg;
-        emit noChanged(arg);
-    }
-}
+void setNumber(int arg);
 void setPWM(double arg)
 {
     if (m_PWM != arg) {
         m_PWM = arg;
+        setGPIO_PWM(number(),arg);
         emit PWMChanged(arg);
     }
 }
-void setState(bool arg)
+void setValue(int arg)
 {
-    if (m_state != arg) {
-        m_state = arg;
-        emit stateChanged(arg);
+    if (m_value != arg) {
+        m_value = arg;
+        setGPIO(number(),arg);
+        emit valueChanged(arg);
+    }
+}
+void setFunction(Function arg)
+{
+    if (m_function != arg) {
+        m_function = arg;
+        configGPIO(number(),arg);
+        emit functionChanged(arg);
     }
 }
 };

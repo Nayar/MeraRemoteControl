@@ -43,14 +43,14 @@ Item {
         y: 12
         width: 75
         height: 15
-        value: car.forward_GPIOPWM
+        value: car.gpio_forward.PWM
     }
 
     Label {
         id: label1
         x: 36
         y: 12
-        text: qsTr("GPIO Forward")
+        text: qsTr("GPIO Forward") + car.gpio_forward.PWM.toPrecision(2)
     }
 
     ProgressBar {
@@ -59,6 +59,9 @@ Item {
         y: 41
         width: 75
         height: 15
+        value: car.gpio_forward.PWM
+        minimumValue: 0
+        maximumValue: 2
     }
 
     Label {
@@ -89,12 +92,13 @@ Item {
         y: 99
         width: 75
         height: 15
+        value: car.gpio_left.PWM
     }
 
     Label {
         id: label4
         x: 36
         y: 99
-        text: qsTr("GPIO Forward")
+        text: qsTr("GPIO Left")
     }
 }

@@ -2,6 +2,9 @@
 #define CARCONTROLLER_H
 
 #include <QObject>
+#include "gpio.h"
+
+class GPIO;
 
 class CarController : public QObject
 {
@@ -18,41 +21,22 @@ public:
         LEFT
     };
 
-    enum gpio_function {
-        in,
-        out
-    };
-
-
     Q_OBJECT
     Q_ENUMS(TURN_DIRECTION)
     Q_ENUMS(ACCELERATE_DIRECTION)
-    Q_PROPERTY(bool carConnected READ carConnected WRITE setCarConnected NOTIFY carConnectedChanged)
-    Q_PROPERTY(QString ipAddress READ ipAddress WRITE setIpAddress NOTIFY ipAddressChanged)
-    Q_PROPERTY(int portNo READ portNo WRITE setPortNo NOTIFY portNoChanged)
     Q_PROPERTY(QString username READ username WRITE setUsername NOTIFY usernameChanged)
+    Q_PROPERTY(QString ipAddress READ ipAddress WRITE setIpAddress NOTIFY ipAddressChanged)
     Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
-
-    Q_PROPERTY(int forward_GPIO READ forward_GPIO WRITE setForward_GPIO NOTIFY forward_GPIOChanged)
-    Q_PROPERTY(double forward_GPIOPWM READ forward_GPIOPWM WRITE setForward_GPIOPWM NOTIFY forward_GPIOPWMChanged)
-    Q_PROPERTY(int backward_GPIO READ backward_GPIO WRITE setBackward_GPIO NOTIFY backward_GPIOChanged)
-    Q_PROPERTY(double backward_GPIOPWM READ backward_GPIOPWM WRITE setBackward_GPIOPWM NOTIFY backward_GPIOPWMChanged)
-
-    Q_PROPERTY(int right_GPIO READ right_GPIO WRITE setRight_GPIO NOTIFY right_GPIOChanged)
-    Q_PROPERTY(int left_GPIO READ left_GPIO WRITE setLeft_GPIO NOTIFY left_GPIOChanged)
+    Q_PROPERTY(int portNo READ portNo WRITE setPortNo NOTIFY portNoChanged)
+    Q_PROPERTY(GPIO *gpio_forward READ gpio_forward WRITE setGpio_forward NOTIFY gpio_forwardChanged)
+    Q_PROPERTY(GPIO *gpio_backward READ gpio_backward WRITE setGpio_backward NOTIFY gpio_backwardChanged)
+    Q_PROPERTY(GPIO *gpio_right READ gpio_right WRITE setGpio_right NOTIFY gpio_rightChanged)
+    Q_PROPERTY(GPIO *gpio_left READ gpio_left WRITE setGpio_left NOTIFY gpio_leftChanged)
     Q_PROPERTY(ACCELERATE_DIRECTION accelerateDirection READ accelerateDirection WRITE setAccelerateDirection NOTIFY accelerateDirectionChanged)
     Q_PROPERTY(TURN_DIRECTION turnDirection READ turnDirection WRITE setTurnDirection NOTIFY turnDirectionChanged)
 
 private:
     QString m_ipAddress;
-
-    int m_forward_GPIO;
-
-    int m_backward_GPIO;
-
-    int m_right_GPIO;
-
-    int m_left_GPIO;
 
     int m_portNo;
 
@@ -64,61 +48,38 @@ private:
 
     ACCELERATE_DIRECTION m_accelerateDirection;
 
-    double m_forward_GPIOPWM;
-
     TURN_DIRECTION m_turnDirection;
 
-    double m_backward_GPIOPWM;
+    GPIO *m_gpio_forward;
+
+    GPIO *m_gpio_backward;
+
+    GPIO *m_gpio_right;
+
+    GPIO *m_gpio_left;
 
 public:
-
-
-//    enum ACCELERATE_DIRECTION {
-//        FORWARD,
-//        BACKWARD
-//    };
 
     explicit CarController(QObject *parent = 0);
     Q_INVOKABLE void accelerate(double power = 0);
     Q_INVOKABLE void turn(double power);
     Q_INVOKABLE void stop();
+    Q_INVOKABLE bool setup();
 
     void init();
-    void setGPIO(int no, int value);
-    void setGPIO_PWM(int no, double value);
-    void configGPIO(int no, gpio_function function);
     void sendPOST(QUrl url);
+
     Q_INVOKABLE void reset()
     {
-        configGPIO(forward_GPIO(),out);
-        configGPIO(backward_GPIO(),out);
-        configGPIO(right_GPIO(),out);
-        configGPIO(left_GPIO(),out);
+//        configGPIO(forward_GPIO(),out);
+//        configGPIO(backward_GPIO(),out);
+//        configGPIO(right_GPIO(),out);
+//        configGPIO(left_GPIO(),out);
     }
 
     QString ipAddress() const
     {
         return m_ipAddress;
-    }
-
-    int forward_GPIO() const
-    {
-        return m_forward_GPIO;
-    }
-
-    int backward_GPIO() const
-    {
-        return m_backward_GPIO;
-    }
-
-    int right_GPIO() const
-    {
-        return m_right_GPIO;
-    }
-
-    int left_GPIO() const
-    {
-        return m_left_GPIO;
     }
 
     int portNo() const
@@ -146,19 +107,29 @@ public:
         return m_accelerateDirection;
     }
 
-    double forward_GPIOPWM() const
-    {
-        return m_forward_GPIOPWM;
-    }
-
     TURN_DIRECTION turnDirection() const
     {
         return m_turnDirection;
     }
 
-    double backward_GPIOPWM() const
+    GPIO * gpio_forward() const
     {
-        return m_backward_GPIOPWM;
+        return m_gpio_forward;
+    }
+
+    GPIO * gpio_backward() const
+    {
+        return m_gpio_backward;
+    }
+
+    GPIO * gpio_right() const
+    {
+        return m_gpio_right;
+    }
+
+    GPIO * gpio_left() const
+    {
+        return m_gpio_left;
     }
 
 signals:
@@ -191,6 +162,14 @@ signals:
 
     void backward_GPIOPWMChanged(double arg);
 
+    void gpio_forwardChanged(GPIO * arg);
+
+    void gpio_backwardChanged(GPIO * arg);
+
+    void gpio_rightChanged(GPIO * arg);
+
+    void gpio_leftChanged(GPIO * arg);
+
 public slots:
 
     void setIpAddress(QString arg)
@@ -199,46 +178,6 @@ public slots:
             m_ipAddress = arg;
             reset();
             emit ipAddressChanged(arg);
-        }
-    }
-    void setForward_GPIO(int arg)
-    {
-        if (m_forward_GPIO != arg) {
-            setGPIO(m_forward_GPIO,0);
-            configGPIO(m_forward_GPIO,in);
-            configGPIO(arg,out);
-            m_forward_GPIO = arg;
-            emit forward_GPIOChanged(arg);
-        }
-    }
-    void setBackward_GPIO(int arg)
-    {
-        if (m_backward_GPIO != arg) {
-            setGPIO(m_backward_GPIO,0);
-            configGPIO(m_backward_GPIO,in);
-            configGPIO(arg,out);
-            m_backward_GPIO = arg;
-            emit backward_GPIOChanged(arg);
-        }
-    }
-    void setRight_GPIO(int arg)
-    {
-        if (m_right_GPIO != arg) {
-            setGPIO(m_right_GPIO,0);
-            configGPIO(m_right_GPIO,in);
-            configGPIO(arg,out);
-            m_right_GPIO = arg;
-            emit right_GPIOChanged(arg);
-        }
-    }
-    void setLeft_GPIO(int arg)
-    {
-        if (m_left_GPIO != arg) {
-            setGPIO(m_left_GPIO,0);
-            configGPIO(m_left_GPIO,in);
-            configGPIO(arg,out);
-            m_left_GPIO = arg;
-            emit left_GPIOChanged(arg);
         }
     }
     void setPortNo(int arg)
@@ -265,26 +204,11 @@ public slots:
             emit passwordChanged(arg);
         }
     }
-    void setCarConnected(bool arg)
-    {
-        if (m_carConnected != arg) {
-            m_carConnected = arg;
-            emit carConnectedChanged(arg);
-        }
-    }
     void setAccelerateDirection(ACCELERATE_DIRECTION arg)
     {
         if (m_accelerateDirection != arg) {
             m_accelerateDirection = arg;
             emit accelerateDirectionChanged(arg);
-        }
-    }
-    void setForward_GPIOPWM(double arg)
-    {
-        if (m_forward_GPIOPWM != arg) {
-            m_forward_GPIOPWM = arg;
-            setGPIO_PWM(forward_GPIO(),arg);
-            emit forward_GPIOPWMChanged(arg);
         }
     }
     void setTurnDirection(TURN_DIRECTION arg)
@@ -294,11 +218,32 @@ public slots:
             emit turnDirectionChanged(arg);
         }
     }
-    void setBackward_GPIOPWM(double arg)
+    void setGpio_forward(GPIO * arg)
     {
-        if (m_backward_GPIOPWM != arg) {
-            m_backward_GPIOPWM = arg;
-            emit backward_GPIOPWMChanged(arg);
+        if (m_gpio_forward != arg) {
+            m_gpio_forward = arg;
+            emit gpio_forwardChanged(arg);
+        }
+    }
+    void setGpio_backward(GPIO * arg)
+    {
+        if (m_gpio_backward != arg) {
+            m_gpio_backward = arg;
+            emit gpio_backwardChanged(arg);
+        }
+    }
+    void setGpio_right(GPIO * arg)
+    {
+        if (m_gpio_right != arg) {
+            m_gpio_right = arg;
+            emit gpio_rightChanged(arg);
+        }
+    }
+    void setGpio_left(GPIO * arg)
+    {
+        if (m_gpio_left != arg) {
+            m_gpio_left = arg;
+            emit gpio_leftChanged(arg);
         }
     }
 };
