@@ -47,7 +47,9 @@ void CarController::accelerate(double power)
     }
     else{
         gpio_forward()->setValue(0);
+        gpio_forward()->setPWM(0);
         gpio_backward()->setValue(0);
+        gpio_backward()->setPWM(0);
     }
 }
 

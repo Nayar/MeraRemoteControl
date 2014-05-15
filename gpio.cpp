@@ -6,6 +6,7 @@ GPIO::GPIO(QObject *parent) :
     QObject(parent)
 {
     this->parent = (CarController *) parent;
+    m_PWM = 0;
 }
 
 bool GPIO::operator !=(GPIO *other)

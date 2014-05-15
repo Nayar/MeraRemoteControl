@@ -158,12 +158,12 @@ Flickable {
         height: 52
         anchors.top: grid1.bottom
         anchors.horizontalCenter: grid1.horizontalCenter
-        text: qsTr("Save")
+        text: qsTr("Done")
         onClicked: {
-            car.setForward_GPIO(comboGPIOForward.currentText)
-            car.setBackward_GPIO(comboGPIOBackward.currentText)
-            car.setRight_GPIO(comboGPIORight.currentText)
-            car.setLeft_GPIO(comboGPIOLeft.currentText)
+//            car.setForward_GPIO(comboGPIOForward.currentText)
+//            car.setBackward_GPIO(comboGPIOBackward.currentText)
+//            car.setRight_GPIO(comboGPIORight.currentText)
+//            car.setLeft_GPIO(comboGPIOLeft.currentText)
             car.setIpAddress(textEditIpAddress.text)
             car.setPortNo(textEditPortNo.text.valueOf())
             car.setUsername(textEditUsername.text)

@@ -21,7 +21,6 @@ ApplicationWindow {
 
         Component.onCompleted: {
             console.log("car done");
-            car.setup();
         }
     }
 

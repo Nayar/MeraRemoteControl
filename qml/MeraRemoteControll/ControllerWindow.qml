@@ -37,68 +37,94 @@ Item {
         }
     }
 
-    ProgressBar {
-        id: progressBar1
-        x: 150
-        y: 12
-        width: 75
-        height: 15
-        value: car.gpio_forward.PWM
-    }
-
     Label {
         id: label1
         x: 36
-        y: 12
-        text: qsTr("GPIO Forward") + car.gpio_forward.PWM.toPrecision(2)
+        y: 20
+        text: qsTr("GPIO ") + car.gpio_forward.number
+
+        ProgressBar {
+            id: progressBar1
+            x: 150
+            y: 0
+            width: 75
+            height: 15
+            value: car.gpio_forward.PWM
+
+            Label {
+                anchors.centerIn: parent
+                text: car.gpio_forward.PWM.toFixed(2)
+            }
+
+        }
     }
 
-    ProgressBar {
-        id: progressBar2
-        x: 150
-        y: 41
-        width: 75
-        height: 15
-        value: car.gpio_forward.PWM
-        minimumValue: 0
-        maximumValue: 2
-    }
 
     Label {
         id: label2
         x: 36
-        y: 41
-        text: qsTr("GPIO Forward")
+        y: 40
+        text: qsTr("GPIO ") + car.gpio_backward.number
+
+        ProgressBar {
+            id: progressBar2
+            x: 150
+            y: 0
+            width: 75
+            height: 15
+            value: car.gpio_backward.PWM
+
+            Label {
+                anchors.centerIn: parent
+                text: car.gpio_backward.PWM.toFixed(2)
+            }
+        }
     }
 
-    ProgressBar {
-        id: progressBar3
-        x: 150
-        y: 70
-        width: 75
-        height: 15
-    }
+
+
+
+
 
     Label {
         id: label3
         x: 36
-        y: 70
-        text: qsTr("GPIO Forward")
-    }
+        y: 60
+        text: qsTr("GPIO ") + car.gpio_right.number
 
-    ProgressBar {
-        id: progressBar4
-        x: 150
-        y: 99
-        width: 75
-        height: 15
-        value: car.gpio_left.PWM
+        ProgressBar {
+            id: progressBar3
+            x: 150
+            y: 0
+            width: 75
+            height: 15
+            value: car.gpio_right.PWM
+
+            Label {
+                anchors.centerIn: parent
+                text: car.gpio_right.PWM.toFixed(2)
+            }
+        }
+
     }
 
     Label {
         id: label4
         x: 36
-        y: 99
-        text: qsTr("GPIO Left")
+        y: 80
+        text: qsTr("GPIO ") + car.gpio_left.number
+
+        ProgressBar {
+            id: progressBar4
+            x: 150
+            y: 0
+            width: 75
+            height: 15
+            value: car.gpio_left.PWM
+            Label {
+                anchors.centerIn: parent
+                text: car.gpio_left.PWM.toFixed(2)
+            }
+        }
     }
 }
