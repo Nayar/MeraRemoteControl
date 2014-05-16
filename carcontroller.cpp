@@ -16,12 +16,12 @@ CarController::CarController(QObject *parent) :
     m_gpio_left = new GPIO(this);
 }
 
-bool CarController::setup()
+bool CarController::connect()
 {
-//    m_gpio_forward->setFunction(GPIO::out);
-//    m_gpio_backward->setFunction(GPIO::out);
-//    m_gpio_right->setFunction(GPIO::out);
-//    m_gpio_left->setFunction(GPIO::out);
+    m_gpio_forward->setFunction(GPIO::out);
+    m_gpio_backward->setFunction(GPIO::out);
+    m_gpio_right->setFunction(GPIO::out);
+    m_gpio_left->setFunction(GPIO::out);
     return true;
 }
 

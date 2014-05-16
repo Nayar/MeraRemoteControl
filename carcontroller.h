@@ -64,7 +64,7 @@ public:
     Q_INVOKABLE void accelerate(double power = 0);
     Q_INVOKABLE void turn(double power);
     Q_INVOKABLE void stop();
-    Q_INVOKABLE bool setup();
+    Q_INVOKABLE bool connect();
 
     void init();
     void sendPOST(QUrl url);

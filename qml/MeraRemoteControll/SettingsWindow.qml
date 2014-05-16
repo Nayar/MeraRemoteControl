@@ -177,6 +177,7 @@ Flickable {
             car.setPortNo(textEditPortNo.text.valueOf())
             car.setUsername(textEditUsername.text)
             car.setPassword(textEditPassword.text)
+            car.connect();
             mainArea.state = "control"
         }
 
