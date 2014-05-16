@@ -22,13 +22,13 @@ Item {
 
     Slider {
         id: sliderHorizontal1
-        x: 8
-        y: 130
+        x: 47
+        y: 147
         width: 200
-        height: 112
+        height: 56
         minimumValue: -1
         value: car.gpio_right.PWM - car.gpio_left.PWM
-        anchors.horizontalCenterOffset: -92
+        anchors.horizontalCenterOffset: -53
         anchors.horizontalCenter: parent.horizontalCenter
         onValueChanged: {
             car.turn(value)
@@ -51,8 +51,8 @@ Item {
 
     Label {
         id: label1
-        x: 36
-        y: 20
+        x: 37
+        y: 45
         text: qsTr("GPIO ") + car.gpio_forward.number
 
         ProgressBar {
@@ -74,8 +74,8 @@ Item {
 
     Label {
         id: label2
-        x: 36
-        y: 40
+        x: 37
+        y: 65
         text: qsTr("GPIO ") + car.gpio_backward.number
 
         ProgressBar {
@@ -100,8 +100,8 @@ Item {
 
     Label {
         id: label3
-        x: 36
-        y: 60
+        x: 37
+        y: 85
         text: qsTr("GPIO ") + car.gpio_right.number
 
         ProgressBar {
@@ -122,8 +122,8 @@ Item {
 
     Label {
         id: label4
-        x: 36
-        y: 80
+        x: 37
+        y: 105
         text: qsTr("GPIO ") + car.gpio_left.number
 
         ProgressBar {
@@ -140,21 +140,34 @@ Item {
         }
     }
 
-    Label {
-        id: label5
-        x: 36
-        y: 101
-        text: qsTr("Accelerometer active")
-        CheckBox{
-            x: -30
-            onCheckedChanged: {
-                if(checked){
-                    accel.active = true;
-                }
-                else {
-                    accel.active = false;
-                }
+
+
+    CheckBox{
+        x: 37
+        y: 126
+        text: "Accelerometer active"
+        onCheckedChanged: {
+            if(checked){
+                accel.active = true;
+            }
+            else {
+                accel.active = false;
             }
         }
+    }
+
+
+    Label {
+        id: label6
+        x: 36
+        y: 24
+        text: qsTr("WebIOPi IP Address: ") + car.ipAddress
+    }
+
+    Label {
+        id: label7
+        x: 250
+        y: 24
+        text: qsTr("Port: ") + car.portNo
     }
 }
