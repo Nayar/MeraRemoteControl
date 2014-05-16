@@ -144,9 +144,9 @@ Item {
         id: label5
         x: 36
         y: 101
-        text: qsTr("Acceleromter Turning")
+        text: qsTr("Accelerometer active")
         CheckBox{
-            x: -40
+            x: -30
             onCheckedChanged: {
                 if(checked){
                     accel.active = true;

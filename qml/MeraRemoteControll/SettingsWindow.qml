@@ -36,6 +36,14 @@ Flickable {
             height: 20
             text: car.ipAddress
             font.pixelSize: 12
+
+            Rectangle{
+                anchors.fill: parent
+                color: "#ffffff"
+                z: -1
+                radius: 3
+                border.color: "#005500"
+            }
         }
 
         Label  {
@@ -54,6 +62,14 @@ Flickable {
             height: 20
             text: car.portNo
             font.pixelSize: 12
+
+            Rectangle{
+                anchors.fill: parent
+                color: "#ffffff"
+                z: -1
+                radius: 3
+                border.color: "#005500"
+            }
         }
 
         Label  {
@@ -72,6 +88,14 @@ Flickable {
             height: 20
             text: car.username
             font.pixelSize: 12
+
+            Rectangle{
+                anchors.fill: parent
+                color: "#ffffff"
+                z: -1
+                radius: 3
+                border.color: "#005500"
+            }
         }
 
         Label  {
@@ -90,6 +114,14 @@ Flickable {
             height: 20
             text: car.password
             font.pixelSize: 12
+
+            Rectangle{
+                anchors.fill: parent
+                color: "#ffffff"
+                z: -1
+                radius: 3
+                border.color: "#005500"
+            }
         }
 
         Label  {
@@ -162,7 +194,7 @@ Flickable {
     }
     Button {
         id: button1
-        x: 160
+        x: 101
         width: 198
         height: 52
         anchors.top: grid1.bottom
@@ -182,6 +214,6 @@ Flickable {
         }
 
         anchors.horizontalCenterOffset: 0
-        anchors.topMargin: 6
+        anchors.topMargin: 30
     }
 }
