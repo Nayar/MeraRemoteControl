@@ -1,5 +1,5 @@
 # Add more folders to ship with the application, here
-folder_01.source = qml/MeraRemoteControll
+folder_01.source = qml/MeraRemoteControl
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
@@ -24,5 +24,5 @@ HEADERS += \
     post.h
 
 OTHER_FILES += \
-    qml/MeraRemoteControll/SettingsWindow.qml \
-    qml/MeraRemoteControll/ControllerWindow.qml
+    qml/MeraRemoteControl/SettingsWindow.qml \
+    qml/MeraRemoteControl/ControllerWindow.qml

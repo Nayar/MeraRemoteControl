@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<GPIO>("MeraCar",1,4,"GPIO");
 
     QtQuick2ControlsApplicationViewer viewer;
-    viewer.setMainQmlFile(QStringLiteral("qml/MeraRemoteControll/main.qml"));
+    viewer.setMainQmlFile(QStringLiteral("qml/MeraRemoteControl/main.qml"));
     viewer.show();
 
     return app.exec();
